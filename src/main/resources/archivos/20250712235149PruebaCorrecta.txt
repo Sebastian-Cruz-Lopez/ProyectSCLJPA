@@ -1,0 +1,3 @@
+|Nombre|ApellidoPaterno|ApellidoMaterno|FechaNacimiento|Telefono|Email|Username|Password|Sexo|Celular|CURP|idRoll|Imagen|Estatus|Calle|NumeroInterior|NumeroExterior|idColonia|
+|Ramon|Cruz|Chavez|1983-09-21|7890564511|ramon.cruz@example.com|ramonC|mon24chis|H|7890564511|CRUZ830921HDFRZR01|1|ramon.jpg|1|Coatzacoalcos|999|11|3|
+|Ana|Lopez|Garcia|1990-05-15|1234567890|ana.lopez@example.com|anaLG|password123|M|1234567890|LOGA900515MCLPRA8|2|ana.jpg|1|Veracruz|101|5|2|

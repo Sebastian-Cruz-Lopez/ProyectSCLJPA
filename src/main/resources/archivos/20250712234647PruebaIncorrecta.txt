@@ -1,0 +1,3 @@
+|Nombre|ApellidoPaterno|ApellidoMaterno|FechaNacimiento|Telefono|Email|Username|Password|Sexo|Celular|CURP|idRoll|Imagen|Estatus|Calle|NumeroInterior|NumeroExterior|idColonia|
+|Juan||Perez|1995-13-40|1234|juan.perez[at]mail|jp|123|X|123456|INVALIDCURP123|abc||0|Calle Falsa|N/A|10|0|
+|Maria|Gomez||1992-02-30|abcdefghij|maria.mail.com|mgomez||F|abcdefghij|123456789012345678|3||1|||0|
