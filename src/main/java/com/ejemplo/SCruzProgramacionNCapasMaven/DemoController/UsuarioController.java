@@ -104,6 +104,16 @@ public class UsuarioController {
         return "UsuarioIndex";
     }
 
+    @GetMapping("/login")
+    public String Login() {
+        return "UsuarioLogin";
+    }
+
+    @GetMapping("/acceso-denegado")
+    public String accesoDenegado() {
+        return "UsuarioAcceso"; 
+    }
+
     @RequestMapping
     public String Index(@ModelAttribute Usuario usuario, Model model) {
         Result result = usuarioDAOImplementation.GetAllDinamic(usuario);

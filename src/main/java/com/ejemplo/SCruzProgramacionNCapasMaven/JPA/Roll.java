@@ -33,14 +33,5 @@ public class Roll {
     public void setRoll(String Roll) {
         this.Roll = Roll;
     }
-
-
-
-
-    
-
-    
-    
-    
     
 }

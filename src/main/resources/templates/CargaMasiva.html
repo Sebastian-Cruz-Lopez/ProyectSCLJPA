@@ -32,7 +32,7 @@
 
                 <!-- Formulario de carga -->
                 <div id="formularioArchivo" style="display: none;">
-                    <form action="/usuario/cargamasiva" method="post" enctype="multipart/form-data">
+                    <form th:action="@{/usuario/cargamasiva}" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <input type="file" id="archivo" name="archivo" class="form-control" accept=".xlsx,.txt">
                         </div>

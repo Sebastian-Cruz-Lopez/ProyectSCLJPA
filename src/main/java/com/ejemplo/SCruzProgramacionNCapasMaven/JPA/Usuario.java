@@ -43,7 +43,7 @@ public class Usuario {
     private String Email;
 
     @Column(name = "username")
-    private String Username;
+    private String username;
 
     @Column(name = "password")
     private String Password;
@@ -178,11 +178,11 @@ public class Usuario {
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String Username) {
-        this.Username = Username;
+        this.username = Username;
     }
 
     public String getImagen() {
