@@ -108,70 +108,31 @@
         </div>
 
         <script>
-            $('#CheckActivo').change(function () {
-                if (this.checked) {
-                    $.ajax({
-                        url: '/usuario/Activo?idUsuario=' + $("#idUsuario").val() + "&Estatus=" + 1,
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function () {
-                            $('#Activo').text('Activo');
-                        }, error: function () {
-                            alert("Ocurrio un error, intentalo mas tarde!");
-                            $("#CheckActivo").prop("checked", false);
-                        }
-                    });
-                } else {
-                    $.ajax({
-                        url: '/usuario/Activo?idUsuario=' + $("#idUsuario").val() + "&Estatus=" + 0,
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function () {
-                            $('#Activo').text('Inactivo');
-                        }, error: function () {
-                            alert("Ocurrio un error, intentalo mas tarde!");
-                            $("#CheckActivo").prop("checked", true);
-                        }
-                    });
-                }
-            });
-        </script>
-        <script>
-            document.getElementById('estatusSwitch').addEventListener('change', function () {
-                document.getElementById('estatusInput').value = this.checked ? '1' : '0';
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('.estatus-switch').change(function () {
-                    const checkbox = $(this);
-                    const idUsuario = checkbox.data('idusuario');
-                    const nuevoEstatus = checkbox.is(':checked') ? 1 : 0;
-                    const label = checkbox.closest('div').find('label.form-check-label').last();
+            $(document).on('change', '.estatus-switch', function () {
+                var checkbox = $(this);
+                var idUsuario = checkbox.data('idusuario');
+                var estatus = checkbox.is(':checked') ? 1 : 0;
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
 
-                    $.ajax({
-                        url: '/usuario/Activo?idUsuario=' + idUsuario + "&Estatus=" + nuevoEstatus,
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function () {
-                            // Actualizamos texto según el nuevo estado
-                            label.text(nuevoEstatus === 1 ? 'Activo' : 'Inactivo');
-                        },
-                        error: function () {
-                            // Mostrar alerta SOLO si se intentó desactivar (1->0) y falló
-                            if (nuevoEstatus === 0) {
-                                alert("Ocurrió un error al desactivar el usuario, inténtalo más tarde.");
-                            }
-                            // Revertir el checkbox al estado anterior
-                            checkbox.prop('checked', !checkbox.is(':checked'));
-                        }
-                    });
+                $.ajax({
+                    url: '/usuario/Activo',
+                    type: 'POST',
+                    data: {IdUsuario: idUsuario, Estatus: estatus},
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success: function (result) {
+                        alert('Estatus actualizado correctamente');
+                    },
+                    error: function () {
+                        alert('Error en la conexión. Inténtalo más tarde.');
+                        checkbox.prop('checked', !checkbox.is(':checked'));
+                    }
                 });
+
             });
-
         </script>
-
 
     </body>
-
 </html>

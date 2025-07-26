@@ -46,7 +46,7 @@ public class UsuarioJPADAOImplementation implements IUsuarioJPADAO {
             usuarioJPA.Roll.setIdRoll(usuarioDireccion.Usuario.Roll.getIdRoll());
             usuarioJPA.setImagen(usuarioDireccion.Usuario.getImagen());
             usuarioJPA.setEstatus(usuarioDireccion.Usuario.getEstatus());
-            
+
             entityManager.persist(usuarioJPA);
             entityManager.flush();
             Direccion direccion = new Direccion();
@@ -427,7 +427,7 @@ public class UsuarioJPADAOImplementation implements IUsuarioJPADAO {
             direccionML.Colonia.Municipio.Estado.Pais.setNombre(direccionEntity.Colonia.Municipio.Estado.Pais.getNombre());
 
             result.object = direccionML;
-            
+
             result.correct = true;
 
         } catch (Exception ex) {
@@ -436,6 +436,32 @@ public class UsuarioJPADAOImplementation implements IUsuarioJPADAO {
             result.ex = ex;
         }
 
+        return result;
+    }
+
+    @Transactional
+    @Override
+    public Result UpdateActivo(int IdUsuario, int Estatus) {
+        Result result = new Result();
+
+        try {
+            Usuario usuarioJPA = entityManager.find(Usuario.class, IdUsuario);
+
+            if (usuarioJPA != null) {
+                usuarioJPA.setEstatus(Estatus);
+                entityManager.merge(usuarioJPA);
+                entityManager.flush();
+
+                result.correct = true;
+            } else {
+                result.correct = false;
+                result.errorMessage = "Usuario no encontrado con ID: " + IdUsuario;
+            }
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
         return result;
     }
 

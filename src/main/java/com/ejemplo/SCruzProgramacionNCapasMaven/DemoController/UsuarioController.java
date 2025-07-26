@@ -713,10 +713,10 @@ public class UsuarioController {
         return "redirect:/usuario/form/" + idUsuario;
     }
 
-    @PostMapping("Activo")
+    @PostMapping("/Activo")
     @ResponseBody
-    public Result ActivoUsuario(@RequestParam int idUsuario, @RequestParam int Estatus) {
-        return usuarioDAOImplementation.UpdateActivo(idUsuario, Estatus);
+    public Result ActivoUsuario(@RequestParam int IdUsuario, @RequestParam int Estatus) {
+        return usuarioJPADAOImplementation.UpdateActivo(IdUsuario, Estatus);
     }
 
     @GetMapping("/GetDireccionByCP/{cp}")

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.jaas.memory.InMemoryConfiguration;
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -42,7 +43,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain SecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(auth -> auth
+        httpSecurity
+                .csrf().disable()
+                .authorizeHttpRequests(auth -> auth
                 // Login y logout siempre públicos
                 .requestMatchers("usuario/acceso-denegado", "/login", "/logout", "/usuario/login").permitAll()
                 // Vista principal para los tres roles
@@ -82,12 +85,15 @@ public class SecurityConfig {
         return username -> {
             Usuario usuario = usuarioRepository.findByUsername(username);
             if (usuario == null) {
-                throw new UsernameNotFoundException("Usuario no encontrado: " + username);
+                throw new UsernameNotFoundException("Usuario: " + username + " no encontrado o invalido! ");
+            }
+            if (usuario.getEstatus() != 1) {
+                throw new DisabledException("El Usuario " + username + " se encuentra inactivo");
             }
 
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority("ROLE_" + usuario.getRoll().getRoll().toUpperCase()));
-            
+
             return new org.springframework.security.core.userdetails.User(
                     usuario.getUsername(), usuario.getPassword(), authorities);
         };
@@ -115,5 +121,5 @@ public class SecurityConfig {
 //                .build();
 //
 //        return new InMemoryUserDetailsManager(programador, administrador, analista);
-//    }
+//    
 }

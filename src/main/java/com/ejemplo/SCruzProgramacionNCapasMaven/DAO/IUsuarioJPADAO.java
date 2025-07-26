@@ -23,5 +23,7 @@ public interface IUsuarioJPADAO {
     Result GetByid(int idUsuario);
     
     Result GetDireccionByid(int idDireccion);
+    
+    Result UpdateActivo(int IdUsuario, int Estatus);
 
 }
